@@ -11,7 +11,7 @@ const About = () => {
      <div className= 'my-10 flex flex-col  md:flex-row '>
       <img className='w-full md:max-w-[360px]' src={assets.about_image} alt="" />
      </div>
-     <div className=' w-125 flex flex-col justify-center gap-6 md: w-2/4 text-sm text-gray-600'>
+     <div className=' w-[500px] flex flex-col justify-center gap-6 md: w-2/4 text-sm text-gray-600'>
     
         <p>Welcome to QuickDoc, your trusted partner in managing your healthcare needs conveniently and efficiently. At QuickDoc, we understand the challenges individuals face when it comes to scheduling doctor appointments and managing their health records.</p>
         <p>QuickDoc is committed to excellence in healthcare technology. We continuously strive to enhance our platform, integrating the latest advancements to improve user experience and deliver superior service. Whether you're booking your first appointment or managing ongoing care, QuickDoc is here to support you every step of the way</p>
