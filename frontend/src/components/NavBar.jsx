@@ -8,14 +8,11 @@ const NavBar = () => {
     const [state,Setstate]=useState(false);
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b-2 border-b-gray-800'>
-        <img src={assets.logo} alt="" className='md:w-[150px] cursor-pointer' />
+        <img src={assets.logo} alt="" className='m-0 p-0 w-[50px] lg:w-[80px] cursor-pointer' />
         <ul className='hidden md:flex  items-start gap-5 font-medium'>
             <NavLink to="/">
                 <li className={`py-1  ${location==='/'&& "border-b-2 border-b-primary"}`}>Home</li>
                 
-            </NavLink>
-            <NavLink to='/doctors'>
-                <li className={`py-1  ${location==='/doctors'&& "border-b-2 border-b-primary"}`}>Doctors</li>
             </NavLink>
             <NavLink to='/about'>
                 <li className={`py-1  ${location==='/about'&& "border-b-2 border-b-primary"}`}>About</li>
@@ -24,6 +21,9 @@ const NavBar = () => {
             <NavLink to='/contact'>
                 <li className={`py-1  ${location==='/contact'&& "border-b-2 border-b-primary"}`}>Contact</li>
  
+            </NavLink>
+            <NavLink to='/doctors'>
+                <li className={`py-1  ${location==='/doctors'&& "border-b-2 border-b-primary"}`}>Doctors</li>
             </NavLink>
             
         </ul>
