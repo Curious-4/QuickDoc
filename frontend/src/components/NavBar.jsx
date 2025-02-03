@@ -14,6 +14,9 @@ const NavBar = () => {
                 <li className={`py-1  ${location==='/'&& "border-b-2 border-b-primary"}`}>Home</li>
                 
             </NavLink>
+            <NavLink to='/doctors'>
+                <li className={`py-1  ${location==='/doctors'&& "border-b-2 border-b-primary"}`}>Doctors</li>
+            </NavLink>
             <NavLink to='/about'>
                 <li className={`py-1  ${location==='/about'&& "border-b-2 border-b-primary"}`}>About</li>
                 
@@ -21,9 +24,6 @@ const NavBar = () => {
             <NavLink to='/contact'>
                 <li className={`py-1  ${location==='/contact'&& "border-b-2 border-b-primary"}`}>Contact</li>
  
-            </NavLink>
-            <NavLink to='/doctors'>
-                <li className={`py-1  ${location==='/doctors'&& "border-b-2 border-b-primary"}`}>Doctors</li>
             </NavLink>
             
         </ul>
