@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 const NavBar = () => {
     let location=useLocation().pathname;
     const navigate=useNavigate();
-    const [state,Setstate]=useState(false);
+    const [state,Setstate]=useState(true);
   return (
     <div className='flex items-center justify-between text-sm py-4 mb-5 border-b-2 border-b-gray-800'>
         <img src={assets.logo} alt="" className='m-0 p-0 w-[50px] lg:w-[80px] cursor-pointer' />
