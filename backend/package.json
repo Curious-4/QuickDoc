@@ -1,0 +1,34 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend to support frontend",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Curious-4/QuickDoc.git"
+  },
+  "keywords": [
+    "javascript",
+    "QuickDoc",
+    "npm"
+  ],
+  "author": "Curious 4",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Curious-4/QuickDoc/issues"
+  },
+  "homepage": "https://github.com/Curious-4/QuickDoc#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prettier": "^3.5.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.0"
+  }
+}
