@@ -1,5 +1,7 @@
+
 import mongoose from 'mongoose'
 
+// creating user Schema
 const userSchemma = new mongoose.Schema({
     name:{type:String, required:true},
     email:{type:String,required:true,unique:true},
@@ -14,5 +16,6 @@ const userSchemma = new mongoose.Schema({
     phone:{type:String,default:'0000000000'}
 })
 
+// creating model using schema with cluster name user which will be used here as userModel
 const userModel = mongoose.models.user || mongoose.model('user,userSchema')
 export default userModel
