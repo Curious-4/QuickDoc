@@ -1,34 +1,26 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend to support frontend",
-  "main": "src/index.js",
-  "type": "module",
+  "main": "server.js",
+  "type":"module",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server":"nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Curious-4/QuickDoc.git"
-  },
-  "keywords": [
-    "javascript",
-    "QuickDoc",
-    "npm"
-  ],
-  "author": "Curious 4",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Curious-4/QuickDoc/issues"
-  },
-  "homepage": "https://github.com/Curious-4/QuickDoc#readme",
-  "devDependencies": {
-    "nodemon": "^3.1.9",
-    "prettier": "^3.5.1"
-  },
+  "description": "",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.6.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "mongoose": "^8.10.0"
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.1",
+    "multer": "^1.4.5-lts.2",
+    "nodemon": "^3.1.9",
+    "validator": "^13.15.0"
   }
 }
