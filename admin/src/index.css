@@ -1,1 +1,9 @@
 @import "tailwindcss";
+/* setting custom variables */
+@theme {
+    --color-primary:oklch(0.608 0.494 226.89)    ;
+  }
+ /* hide the scroll bar from pages */
+::-webkit-scrollbar{
+  @apply hidden
+}
