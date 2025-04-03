@@ -1,5 +1,7 @@
 import { createContext } from "react";
 import {useState} from 'react';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 // basic Syntax of creating context api functions
 
@@ -12,11 +14,31 @@ This is a Context object created using createContext(). It will allow other comp
 // will provide context values to its child components
 const AdminContextProvider = (props) =>{
     // set aToken empty if localStorage does not contain aToken (user is not logged in )
+    const [doctors, setDoctors] = useState([]) // state to hold all doctors
+
     const [aToken, setAToken] = useState(localStorage.getItem('aToken')?localStorage.getItem('aToken'):'')
     // accessing url of backend 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+    //Get all Doctors
+    const getAllDoctors = async () => {
+        try {
+            const response = await axios.post(backendUrl + '/api/admin/all-doctors', {}, {headers : {aToken}});
+
+            const { data } = response;
+            if (data.success) {
+                setDoctors(data.doctors)
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
+
     const value = {
-        aToken,setAToken,backendUrl // these 3 will be passed when as a context to children component
+        aToken,setAToken,backendUrl, doctors, getAllDoctors // these 3 will be passed when as a context to children component
     }
     return <AdminContext.Provider value = {value}>
         {props.children}
