@@ -11,7 +11,7 @@ const addDoctor = async (req, res) => {
       name,
       email,
       password,
-      speciality,
+      specialty,
       degree,
       experience,
       about,
@@ -30,7 +30,7 @@ const addDoctor = async (req, res) => {
       !name ||
       !email ||
       !password ||
-      !speciality ||
+      !specialty ||
       !degree ||
       !experience ||
       !about ||
@@ -65,7 +65,7 @@ const addDoctor = async (req, res) => {
       email,
       image: imageURL, // destination location of the image
       password: hashedPassword,
-      speciality,
+      specialty,
       degree,
       experience,
       about,
@@ -101,4 +101,16 @@ const adminLogin = async (req, res) => {
   }
 };
 
-export { addDoctor, adminLogin };
+const allDoctors = async(req, res) => {
+  try {
+    const doctors = await doctorModel.find({}).select("-password");
+
+    res.json({success: true, doctors});
+    
+  } catch (error) {
+    console.log(error)
+    res.json({success: false, message: error.message})
+  }
+}
+
+export { addDoctor, adminLogin, allDoctors };

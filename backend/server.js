@@ -20,7 +20,6 @@ app.use(cors()) // allowing backend and frontend to connect
 
 // API endpoints
 app.use('/api/admin',adminRouter) // each api will have /api/admin and will be directed to adminRouter routes
-
 // serving the home
 app.get('/',(req,res)=>{
     res.send("API WORKING Great wow hi world")

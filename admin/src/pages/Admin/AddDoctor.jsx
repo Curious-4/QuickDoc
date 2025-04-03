@@ -30,7 +30,7 @@ const AddDoctor = () => {
 
       const formData = new FormData();
       formData.append('image', docImg);
-      formData.append('name', Name);
+      formData.append('name', name);
       formData.append('email', email);
       formData.append('password', password);
       formData.append('specialty', specialty);
@@ -39,8 +39,12 @@ const AddDoctor = () => {
       formData.append('about', about);
       formData.append('fees', Number(fees));
       formData.append('address', JSON.stringify({ line1: address1, line2: address2 }));
+      console.log(formData)
 
-      const { data } = await axios.post(backendUrl+'/api/admin/add-doctor', formData, { headers: {aToken}})
+      const response = await axios.post(backendUrl+'/api/admin/add-doctor', formData, { headers: {aToken}})
+
+      console.log(response)
+      const { data } = response
 
       if (data.success) {
         toast.success(data.message)
@@ -68,7 +72,7 @@ const AddDoctor = () => {
   }
 
   return (
-    <form className="m-5 w-full">
+    <form className="m-5 w-full" onSubmit={(e) => onSubmitHandler(e)}>
       <p className="mb-3 text-lg font-medium">Add Doctor</p>
       <div className="bg-white px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll">
         <div className="flex items-center gap-4 mb-8 text-gray-500">
