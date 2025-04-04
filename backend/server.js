@@ -7,6 +7,7 @@ import 'dotenv/config'
 import connectDB from './config/mongodb.js';
 import connectCloudinary from './config/cloudinary.js';  // .js is used in internal imports to as ECMScripts is not setted up
 import adminRouter from './routes/adminRoute.js';
+import doctorRouter from './routes/doctorRoute.js';
 
 // app config
 const app = express(); // creating var
@@ -20,6 +21,8 @@ app.use(cors()) // allowing backend and frontend to connect
 
 // API endpoints
 app.use('/api/admin',adminRouter) // each api will have /api/admin and will be directed to adminRouter routes
+app.use('/api/doctor', doctorRouter)
+
 // serving the home
 app.get('/',(req,res)=>{
     res.send("API WORKING Great wow hi world")
