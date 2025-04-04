@@ -6,8 +6,10 @@ import axios from "axios";
 
 const AppContextProvider = (props) => {
     const [doctors, setDoctors] = useState([]);
+    const [token, setToken] = useState('');
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    
 
     const getDoctorData = async () => {
         try {
@@ -29,9 +31,11 @@ const AppContextProvider = (props) => {
     },[])
 
     const value = {
-        doctors
-
+        doctors,
+        token, setToken,
+        backendUrl
     }
+    
 
     return (
         <AppContext.Provider value={value}>

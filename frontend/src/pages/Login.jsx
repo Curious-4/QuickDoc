@@ -1,5 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from 'react-toastify'
 
 const Login = () => {
   const [state, setState] = useState("signup");
@@ -7,11 +10,35 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
+  const {backendUrl, token, setToken} = useContext(AppContext)
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Name:", name);
+    
+    try {
+      
+      if (state === 'Sign Up') {
+        const { data } = await axios.post(backendUrl+'api.user/register', {name, password, email});
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          setToken(data.token);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendUrl+'api.user/login', {password, email});
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          setToken(data.token);
+        } else {
+          toast.error(data.message);
+        }
+      }
+
+    } catch (error) {
+      console.error(error.message);
+    }
+    
   };
 
   return (
