@@ -36,9 +36,26 @@ const AdminContextProvider = (props) =>{
         }
     }
 
+    // Function to change Doctor's availability
+    const changeAvailability = async (docId) => {
+        try {
+            const { data } = await axios.post(backendUrl + '/api/admin/change-availability', {docId}, {headers : {aToken}});
+
+            if(data.success) {
+                toast.success(data.message);
+                getAllDoctors();
+            } else {
+                toast.error(data.message);
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
 
     const value = {
-        aToken,setAToken,backendUrl, doctors, getAllDoctors // these 3 will be passed when as a context to children component
+        aToken,setAToken,backendUrl, doctors, getAllDoctors, changeAvailability // these 3 will be passed when as a context to children component
     }
     return <AdminContext.Provider value = {value}>
         {props.children}
