@@ -10,7 +10,7 @@ const changeAvailability = async (req, res) => {
         res.json({success: true, message: 'Available Changed'})
         
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
         res.json({success: false, message: error.message})
     }
 }
