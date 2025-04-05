@@ -77,7 +77,7 @@ const loginUser = async (req, res) => {
 //Api to get user details
 const getProfile = async (req, res) => {
     try {
-        const { userId } = req.body;
+        const { userId } = req.user;
         
         const user = await userModel.findById(userId).select('-password');
         res.json({success: true, user});
@@ -90,8 +90,10 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
     try {
-        const { userId, phone, address, dob, gender, name, email } = req.body;
+        const { phone, address, dob, gender, name, email } = req.body;
         const imageFile = req.file;
+
+        const userId = req.user.userId;
 
         if (!name || !email || !dob || !gender) {
             return res.json({success: false, message: "Please fill all required fields"});

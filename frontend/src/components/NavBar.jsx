@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { AppContext } from "../context/AppContext";
 
 const NavBar = () => {
-    const { token, setToken } = useContext(AppContext);
+    const { token, setToken, userData } = useContext(AppContext);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     let location = useLocation().pathname;
     const navigate = useNavigate();
@@ -66,9 +66,9 @@ const NavBar = () => {
 
             {/* Profile or Login Button */}
             <div className="hidden md:block">
-                {token ? (
+                {token && userData ? (
                     <div className='flex items-center gap-2 cursor-pointer group relative'>
-                        <img src={assets.profile_pic} alt="" className='w-8 rounded-full' />
+                        <img src={userData.image} alt="" className='w-8 rounded-full' />
                         <img src={assets.dropdown_icon} alt="" className='W-2.5' />
                         <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
                             <div className='min-w-40 bg-stone-100 flex flex-col gap-4 p-4'>
