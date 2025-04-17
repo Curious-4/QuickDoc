@@ -4,20 +4,22 @@ import { AppContext } from '../context/AppContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { assets } from '../assets_frontend/assets';
+
 import RelatedDoctors from '../components/RelatedDoctors';
 // import RelatdDoctor
 
 const Appointment = () => {
+  const navigate = useNavigate();
   const { docId } = useParams();
-  const {doctors , currencySymbol} = useContext(AppContext)
+  const {doctors , backendUrl,token,getDoctorData,currencySymbol} = useContext(AppContext)
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
- 
+
 
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState('');
-
+  console.log(slotIndex);
   const fetchDocInfo = async () => {
     const doc = doctors.find(doc => doc._id === docId);
     setDocInfo(doc);
@@ -66,9 +68,11 @@ const Appointment = () => {
     }
 
     setDocSlots(allSlots);
+    // setDocSlots(prev => ({...prev, allSlots}));
   };
 
   const bookAppointment = async () => {
+  
     if (!token) {
       toast.warn('Login to book appointment');
       return navigate('/login');
@@ -77,17 +81,19 @@ const Appointment = () => {
     try {
       const date = docSlots[slotIndex][0].datetime;
       const slotDate = `${date.getDate()} ${date.getMonth() + 1} ${date.getFullYear()}`;
-
-      const { data } = await axios.post(
+      const response = await axios.post(
         backendUrl + '/api/user/book-appointment',
         { docId, slotDate, slotTime },
         { headers: { token } }
       );
 
+
+      const { data } = response;
+
       if (data.success) {
         toast.success(data.message);
-        getDoctorsData();
-        navigate('/my-appointment');
+        getDoctorData();
+        navigate('/my-appointments');
       } else {
         toast.error(data.message);
       }
@@ -97,53 +103,18 @@ const Appointment = () => {
     }
   };
 
+
   useEffect(() => {
     fetchDocInfo();
   }, [doctors, docId]);
 
   useEffect(() => {
     getAvailableSlots();
-    console.log(docInfo);
+    // console.log(docInfo);
   }, [docInfo]);
 
-//   return docInfo && (
-//     <div>
-//       {/* doc-info */}
-      
-//       <div  className='flex flex-col sm:flex-row gap-4'>
-//         <div>
-//           <img className='bg-blue-600 w-full   sm:max-w-72 rounded-lg' src={docInfo.image} alt="" />
-//         </div>
-//         <div className='flex-1 border-gray-400 border rounded-lg p-8 py-7 bg-white mx-2 sm:mx-0 mt-[-80px] sm:mt-0' >
-//           {/* doc info : naame degree speciality*/}
-//           <p className='flex items-center gap-2 text-2xl font-medium text-gray-900  '>{docInfo.name}</p>
-//           <img  className=" w-5" src={assets.verified_icon} alt="" />
-//           <div className='flex items-center gap-2 text-sm mt-1 text-gray-600'>
-//             <p>{docInfo.degree}-{docInfo.specialty}</p>
-//               <button className=' py-0.5 px-2 border text-xs rounded-full '>{docInfo.experience}</button>
-//           </div>
-//           {/* doctor about */}
-//           <p className='flex items-center gap-1 text-sm font-medium text-gray-900 mt-3 '>About <img src={assets.info_icon} alt="" /></p>
-//           <p className='text-sm text-gray-500 max-w-[700px] mt-1'>{docInfo.about}</p>      
-//         </div>
-//          <p>
-//            Appointment fee:<span>{docInfo.fees}</span>
-//          </p>
+  // console.log(slotIndex);
 
-//                  {/* Booking slots */}
-//        <div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'>
-//         <p>Booking slots</p>
-//         <div>
-//           {
-//           docSlots.length && docSlots.map((item,index)=>(
-//             <div key={index}></div>
-//            ))
-//           }
-//         </div>
-//       </div>        
-//     </div>
-//   )
-// }
 return docInfo && (
   <div>
     {/* doc-info */}
@@ -177,21 +148,30 @@ return docInfo && (
 
     {/* Appointment Fee */}
     <p className='mt-4 text-gray-800'>
-      Appointment fee: <span className='font-semibold'>{docInfo.fees}</span>
+      Appointment fee: <span className='font-semibold'>{currencySymbol}{docInfo.fees}</span>
     </p>
 
     {/* Booking Slots */}
     <div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'>
       <p>Booking slots</p>
       <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
-        {
-          docSlots.length > 0 && docSlots.map((item, index) => (
-            <div onClick={()=>setSlotIndex(index)} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotTime === index ? 'bg-blue-600 text-white' : 'border border-gray-200'}`} key={index}>
-              <p>{item[0] && daysOfWeek[item[0].datetime.getDay()]}</p>
-              <p>{item[0] && item[0].datetime.getDate()}</p>
+      {
+        docSlots.length > 0 && docSlots.map((item, index) => {
+          const currentDate = new Date();
+          currentDate.setDate(currentDate.getDate() + index);
+
+          return (
+            <div 
+              onClick={() => setSlotIndex(index)}
+              className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-blue-600 text-white' : 'border border-gray-200'}`} 
+              key={index}
+            >
+              <p>{item[0] ? daysOfWeek[item[0].datetime.getDay()] : daysOfWeek[currentDate.getDay()]}</p>
+              <p>{item[0] ? item[0].datetime.getDate() : currentDate.getDate()}</p>
             </div>
-          ))
-        }
+          );
+        })
+      }
       </div>
 
      <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
@@ -202,7 +182,12 @@ return docInfo && (
       ))}
      </div>
       
-     <button className='bg-blue-600 text-white text-sm font-light px-14 py-3 rounded-full my-6'></button>
+     <button
+  className='bg-blue-600 text-white text-sm font-light cursor-pointer px-14 py-3 rounded-full my-6'
+  onClick={bookAppointment}
+>
+  Book Appointment
+</button>
 
     </div>
     {/* Listing related Doctor */}

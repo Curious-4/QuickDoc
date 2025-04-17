@@ -5,6 +5,7 @@ export const AppContext = createContext()
 import axios from "axios";
 
 const AppContextProvider = (props) => {
+    const currencySymbol='$';
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : false);
@@ -50,7 +51,6 @@ const AppContextProvider = (props) => {
     },[])
 
     useEffect(() => {
-        console.log(token)
         if (token) {
             loadUserProfileData();
         } else {
@@ -59,11 +59,14 @@ const AppContextProvider = (props) => {
     }, [token])
 
     const value = {
+        currencySymbol,
         doctors, setDoctors,
         token, setToken,
         backendUrl,
         userData, setUserData,
-        loadUserProfileData
+        loadUserProfileData,
+        getDoctorData
+
     }
     
 
