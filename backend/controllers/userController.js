@@ -112,7 +112,7 @@ const updateProfile = async (req, res) => {
       name,
       phone,
       address: JSON.parse(address).phone,
-      gender,
+      gender,dob
     });
 
     if (imageFile) {

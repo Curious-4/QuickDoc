@@ -36,7 +36,8 @@ const AllApointments = () => {
               <img className='w-8 rounded-full' src={item.userData.image} alt="" />
               <p>{item.userData.name}</p>
             </div>
-            <p className='max-sm:hidden'>{calculateAge(item.userData.dob)}</p>
+           {/* // Need to change the type of DOB to date as it is creating error when not selected --- Dont temporary solution */}
+            <p className='max-sm:hidden'>{(item.userData.dob !== "Not Selected")?calculateAge(item.userData.dob): '-' }</p>
             <p>{ slotDateFormat(item.slotDate) },{item.slotTime}</p>
             <div className='flex items-center gap-2'>
               <img className='w-8 rounded-full bg-gray-200' src={item.docData.image} alt="" />
