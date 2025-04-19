@@ -15,10 +15,10 @@ This is a Context object created using createContext(). It will allow other comp
 const AdminContextProvider = (props) =>{
     // set aToken empty if localStorage does not contain aToken (user is not logged in )
     const [doctors, setDoctors] = useState([]) // state to hold all doctors
-
     const [appointments,setAppointments] = useState([])
-
     const [aToken, setAToken] = useState(localStorage.getItem('aToken')?localStorage.getItem('aToken'):'')
+    const [dashData,setDashData] = useState(false)
+
     // accessing url of backend 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -85,8 +85,23 @@ const AdminContextProvider = (props) =>{
         }
     }
 
+    const getDashData = async () =>{
+        try {
+            const {data} = await axios.get(backendUrl + '/api/admin/dashboard',{headers:{aToken}})
+            if(data.success){
+                setDashData(data.dashData)
+                console.log(data.dashData);
+                
+            }else{
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     const value = {
-        aToken,setAToken,backendUrl, doctors, getAllDoctors, changeAvailability,appointments,setAppointments,getAllAppointments,cancelAppointment // these will be passed when as a context to children component
+        aToken,setAToken,backendUrl, doctors, getAllDoctors, changeAvailability,appointments,setAppointments,getAllAppointments,cancelAppointment,dashData,getDashData // these will be passed when as a context to children component
     }
     return <AdminContext.Provider value = {value}>
         {props.children}

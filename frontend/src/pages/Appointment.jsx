@@ -80,7 +80,7 @@ const Appointment = () => {
 
     try {
       const date = docSlots[slotIndex][0].datetime;
-      const slotDate = `${date.getDate()} ${date.getMonth() + 1} ${date.getFullYear()}`;
+      const slotDate = `${date.getDate()}_${date.getMonth() + 1}_${date.getFullYear()}`;
       const response = await axios.post(
         backendUrl + '/api/user/book-appointment',
         { docId, slotDate, slotTime },
