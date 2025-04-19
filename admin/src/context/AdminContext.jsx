@@ -16,6 +16,8 @@ const AdminContextProvider = (props) =>{
     // set aToken empty if localStorage does not contain aToken (user is not logged in )
     const [doctors, setDoctors] = useState([]) // state to hold all doctors
 
+    const [appointments,setAppointments] = useState([])
+
     const [aToken, setAToken] = useState(localStorage.getItem('aToken')?localStorage.getItem('aToken'):'')
     // accessing url of backend 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
@@ -53,9 +55,38 @@ const AdminContextProvider = (props) =>{
         }
     }
 
+    const getAllAppointments = async () =>{
+        try {
+            const {data} = await axios.get(backendUrl+'/api/admin/appointments',{headers:{aToken}})
+            if(data.success){
+                setAppointments(data.appointments);
+                console.log(data.appointments);
+                
+            }else{
+                toast.error(error.message)
+            }
+        } catch (error) {
+            toast.error(error.message)          
+        }
+    }
+
+    const cancelAppointment = async (appointmentId)=>{
+        try {
+            const {data} = await axios.post(backendUrl+'/api/admin/cancel-appointment',{appointmentId},{headers:{aToken}})
+            if(data.success){
+                toast.success(data.message)
+                getAllAppointments()
+            }
+            else{
+                toast.error(data.message)
+            }
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
 
     const value = {
-        aToken,setAToken,backendUrl, doctors, getAllDoctors, changeAvailability // these 3 will be passed when as a context to children component
+        aToken,setAToken,backendUrl, doctors, getAllDoctors, changeAvailability,appointments,setAppointments,getAllAppointments,cancelAppointment // these will be passed when as a context to children component
     }
     return <AdminContext.Provider value = {value}>
         {props.children}

@@ -54,7 +54,9 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    const { email, password } =req.user;
+    // console.log(req.body);
+    
+    const { email, password } =req.body;
 
     if (!email || !password) {
       return res.json({ success: false, message: "Please fill all fields" });
@@ -231,6 +233,9 @@ const cancelAppointment = async (req, res) => {
     res.json({success:false, message: error.message})
   }
 }
+
+// code for RAZORPAY
+
 // const razorpayInstance = new razorpay({
 //   key_id:process.env.RAZORPAY_KEY_ID,
 //   key_secret:process.env.RAZORPAY_KEY_SECRET
