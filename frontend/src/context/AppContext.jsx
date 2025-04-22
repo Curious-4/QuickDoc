@@ -1,10 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify'
-// import { doctors } from "../assets_frontend/assets";
+import { useNavigate } from "react-router-dom";
 export const AppContext = createContext()
 import axios from "axios";
 
 const AppContextProvider = (props) => {
+    const currencySymbol='$';
+    const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : false);
     const [userData, setUserData] = useState(null);
@@ -33,6 +35,7 @@ const AppContextProvider = (props) => {
 
             if (data.success) {
                 setUserData(data.user)
+                navigate("/");
             } else {
                 toast.error(data.message)
             }
@@ -48,7 +51,6 @@ const AppContextProvider = (props) => {
     },[])
 
     useEffect(() => {
-        console.log(token)
         if (token) {
             loadUserProfileData();
         } else {
@@ -57,11 +59,14 @@ const AppContextProvider = (props) => {
     }, [token])
 
     const value = {
-        doctors,
+        currencySymbol,
+        doctors, setDoctors,
         token, setToken,
         backendUrl,
         userData, setUserData,
-        loadUserProfileData
+        loadUserProfileData,
+        getDoctorData
+
     }
     
 

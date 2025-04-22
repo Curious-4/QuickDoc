@@ -74,7 +74,7 @@ const NavBar = () => {
                             <div className='min-w-40 bg-stone-100 flex flex-col gap-4 p-4'>
                                 <p onClick={() => { navigate("/profile") }} className='hover:text-black'>My profile</p>
                                 <p onClick={logout} className='hover:text-black'>Logout</p>
-                                <p onClick={() => { navigate("/my-appointments") }} className='hover:text-black'>My Appointments</p>
+                                <p onClick={() => {    navigate("/my-appointments") }} className='hover:text-black'>My Appointments</p>
                             </div>
                         </div>
                     </div>
