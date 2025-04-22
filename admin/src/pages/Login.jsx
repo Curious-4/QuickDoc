@@ -3,12 +3,16 @@ import {assets} from '../assets/assets.js'
 import { AdminContext } from '../context/AdminContext.jsx'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { DoctorContext } from '../context/DoctorContext.jsx'
 function Login() {
   
   const [state,setState] = useState('Admin') // setting default state as Admin Login
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const {setAToken,backendUrl} = useContext(AdminContext) // destructuring setAToken and backendURL from AdminContext for storing token in state and backenUrL for backend request
+
+  const {setDToken} = useContext(DoctorContext)
+
   const onSubmitHandler = async (event)=>{
     event.preventDefault(); // prevent refreshing of page when the form is submitted
 
@@ -25,10 +29,17 @@ function Login() {
       }
       // Logic for Doctor Login - Authentication
       else{
-        
-        
+          const {data} = await axios.post(backend +'/api/doctor/login',{email,password})
+          if(data.success){
+            localStorage.setItem('dToken',data.token); // storing token in localStorage Client side
+            setDToken(data.token);  
+            console.log(data.token);
+             // stroing the token in state
+          }else{
+            toast.error(data.message)        
+          }
       }
-    }catch(err){
+    }catch(err){ 
       toast.error(err.message);
       console.log(err.message);
       

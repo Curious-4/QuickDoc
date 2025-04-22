@@ -11,14 +11,18 @@ import DashBoard from './pages/Admin/DashBoard';
 import AllApointments from './pages/Admin/AllApointments';
 import AddDoctor from './pages/Admin/AddDoctor';
 import DoctorsList from './pages/Admin/DoctorsList';
+import DoctorDashboard from './pages/Doctor/DoctorDashboard';
+import DoctorAppointment from './pages/Doctor/DoctorAppointment';
+import DoctorProfile from './pages/Doctor/DoctorProfile';
 
 const App = () => {
 
   const {aToken} = useContext(AdminContext)
+  const {dToken} = useContext(AdminContext)
   // if aToken exists then user is loggedin therefore show dashboard 
   // if not then show login page
-  
-  return aToken ?(
+  // Same goes with dToken 
+  return aToken || dToken?(
     <div className='bg-[#F8F9FD'>
       {/*  react-toastify is used for displaying notifications ( Toast Container to be used in parent component to use it in later component)*/}
      <ToastContainer/>
@@ -26,13 +30,19 @@ const App = () => {
      <div className='flex items-start'>
       <SideBar/>
       <Routes>
-        {/* Add your routes here */}
+        {/* Admin Routes */}
         <Route path='/' element={<></>} />
         <Route path='/admin-dashboard' element={<DashBoard/>} />
         <Route path='/all-apointments' element={<AllApointments/>} />
         <Route path='/add-doctor' element={<AddDoctor/>} />
         <Route path='/doctors-list' element={<DoctorsList/>} />
-        {/* Add more routes here */}
+        <Route path='/doctors-list' element={<DoctorsList/>} />
+        {/* Doctor Routes */}
+
+
+        <Route path='/doctor-dashboard' element={<DoctorDashboard/>} />
+        <Route path='/doctor-appointments' element={<DoctorAppointment/>} />
+        <Route path='/doctor-profile' element={<DoctorProfile/>} />
       </Routes>
      </div>
     </div>

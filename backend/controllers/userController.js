@@ -32,7 +32,7 @@ const registerUser = async (req, res) => {
             password: hashedPassword
         })
 
-        await user.save();
+        await user.save();  // mongo ka method hai jo ki save karra hai 
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET)
 
