@@ -30,6 +30,7 @@ const doctorList = async (req, res)=> {
 const loginDoctor = async (req , res) =>{
     try{
         const {email , password} = req.body
+        // console.log(req.body)
         const doctor = await doctorModel.findOne({email})
         if(!doctor){
             return res.json({success:false,message:'Invalid credentials'})
@@ -38,7 +39,7 @@ const loginDoctor = async (req , res) =>{
 
         if(isMatch){
             
-            const token = jwt.sign({id:doctor._id},ProcessingInstruction.env.JWT_SECRET)
+            const token = jwt.sign({id:doctor._id},process.env.JWT_SECRET)
             res.json({sucess:true,token})
         }
         else{

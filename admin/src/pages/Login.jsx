@@ -12,7 +12,7 @@ function Login() {
   const {setAToken,backendUrl} = useContext(AdminContext) // destructuring setAToken and backendURL from AdminContext for storing token in state and backenUrL for backend request
 
   const {setDToken} = useContext(DoctorContext)
-
+    console.log(state)
   const onSubmitHandler = async (event)=>{
     event.preventDefault(); // prevent refreshing of page when the form is submitted
 
@@ -29,7 +29,8 @@ function Login() {
       }
       // Logic for Doctor Login - Authentication
       else{
-          const {data} = await axios.post(backend +'/api/doctor/login',{email,password})
+          const {data} = await axios.post(backendUrl +'/api/doctor/login',{email,password})
+          console.log(data)
           if(data.success){
             localStorage.setItem('dToken',data.token); // storing token in localStorage Client side
             setDToken(data.token);  
