@@ -14,11 +14,13 @@ import DoctorsList from './pages/Admin/DoctorsList';
 import DoctorDashboard from './pages/Doctor/DoctorDashboard';
 import DoctorAppointment from './pages/Doctor/DoctorAppointment';
 import DoctorProfile from './pages/Doctor/DoctorProfile';
+import { DoctorContext } from './context/DoctorContext';
 
 const App = () => {
 
   const {aToken} = useContext(AdminContext)
-  const {dToken} = useContext(AdminContext)
+  const {dToken} = useContext(DoctorContext)
+  console.log(dToken, aToken)
   // if aToken exists then user is loggedin therefore show dashboard 
   // if not then show login page
   // Same goes with dToken 

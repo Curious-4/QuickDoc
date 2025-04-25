@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-
 @import "tailwindcss";
 /* setting custom variables */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @theme {
   --color-primary:oklch(0.608 0.494 226.89)    ;
 }
