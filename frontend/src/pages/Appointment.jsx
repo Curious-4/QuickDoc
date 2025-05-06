@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { toast } from 'react-toastify';
@@ -19,7 +19,8 @@ const Appointment = () => {
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState('');
-  console.log(slotIndex);
+  // console.log(slotIndex);
+  
   const fetchDocInfo = async () => {
     const doc = doctors.find(doc => doc._id === docId);
     setDocInfo(doc);
@@ -191,7 +192,7 @@ return docInfo && (
 
     </div>
     {/* Listing related Doctor */}
-    <RelatedDoctors docId = {docId} speciality = {docInfo.speciality} />
+    <RelatedDoctors docId = {docId} specialty = {docInfo.specialty} />
   </div>
 )}
 export default Appointment;

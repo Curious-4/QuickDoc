@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast} from 'react-toastify'
@@ -87,7 +87,7 @@ const MyAppointments = () =>
           </div>
           <div className="flex-1 text-sm text-zinc-600">
           <p className="text-neutral-800 font-semibold " >{item.docData.name}</p>
-          <p>{item.docData.speciality}</p>
+          <p>{item.docData.specialty}</p>
           <p className="text-zinc-700 font-medium mt-1">Address :</p>
           <p className="text-xsl">{item.docData.address.line1}</p>
           <p className="text-xsl">{item.docData.address.line2}</p>

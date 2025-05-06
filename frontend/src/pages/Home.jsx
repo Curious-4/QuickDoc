@@ -1,7 +1,6 @@
-import React from 'react'
 import Header from '../components/Header'
-import SpecialityMenu from '../components/SpecialityMenu'
-import Doctors from './Doctors'
+import SpecialtyMenu from '../components/SpecialtyMenu'
+// import Doctors from './Doctors'
 import TopDoctors from '../components/TopDoctors'
 import Banner from '../components/Banner'
 
@@ -9,7 +8,7 @@ const Home = () => {
   return (
     <div>
       <Header/>
-      <SpecialityMenu/>
+      <SpecialtyMenu/>
       <TopDoctors/>
       <Banner/>
       </div>

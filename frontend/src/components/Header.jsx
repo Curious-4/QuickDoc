@@ -1,4 +1,3 @@
-import React from 'react'
 import {assets} from '../assets_frontend/assets'
 const Header = () => {
   return (
@@ -16,7 +15,7 @@ const Header = () => {
                       Book appointments, consult top doctors, and manage your health with ease.
                     </p>
                 </div>
-                <a className='flex item-center gap-2 bg-white px-8 py-3 rounded-full text-gray-600 text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300 ' href="#speciality">Book Appointment <img className='w-3'src={assets.arrow_icon } alt="" /></a>
+                <a className='flex item-center gap-2 bg-white px-8 py-3 rounded-full text-gray-600 text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300 ' href="#specialty">Book Appointment <img className='w-3'src={assets.arrow_icon } alt="" /></a>
             
 
         </div>

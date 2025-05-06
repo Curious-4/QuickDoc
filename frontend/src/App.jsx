@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Home from './pages/Home'
 import Contact from './pages/Contact'
 import About from './pages/About'
@@ -25,7 +25,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path='/profile' element={<Profile/>} />
           <Route path='/doctors' element={<Doctors/>} />
-          <Route path='/doctors/:speciality' element={<Doctors/>} />
+          <Route path='/doctors/:specialty' element={<Doctors/>} />
           <Route path="/my-appointments" element={<MyAppointments/>} />
           <Route path="/my-appointments/:docId" element={<Appointment/>} />
       </Routes>

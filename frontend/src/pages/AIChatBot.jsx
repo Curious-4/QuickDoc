@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // OpenRouter API endpoint and model
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
@@ -14,8 +14,51 @@ Never engage in casual conversation or non-medical topics.
 `;
 
 const MEDICAL_KEYWORDS = [
-  "health", "medicine", "medicines", "doctor", "symptom", "treatment", "nutrition", "diet", "pain", "fever", "headache", "illness", "disease", "prescription", "appointment", "injury", "infection", "therapy", "vaccine", "allergy", "blood", "pressure", "diabetes", "cholesterol", "cancer", "asthma", "covid", "flu", "cold"
+  // Original Keywords
+  "health", "medicine", "medicines", "doctor", "symptom", "treatment", "nutrition", "diet", "pain", "fever", "headache", "illness", "disease", "prescription", "appointment", "injury", "infection", "therapy", "vaccine", "allergy", "blood", "pressure", "diabetes", "cholesterol", "cancer", "asthma", "covid", "flu", "cold", "cough",
+
+  // General Health & Wellness
+  "wellness", "fitness", "hygiene", "preventive", "screening", "rehabilitation", "palliative", "hospice", "stress", "sleep", "exercise", "hydration", "metabolism", "vital signs", "checkup",
+
+  // Medical Specialties & Professionals
+  "physician", "surgeon", "nurse", "pharmacist", "dentist", "cardiologist", "dermatologist", "neurologist", "oncologist", "pediatrician", "psychiatrist", "radiologist", "gynecologist", "urologist", "ophthalmologist", "orthopedist", "endocrinologist", "pulmonologist", "gastroenterologist", "hematologist", "nephrologist", "pathologist", "anesthesiologist", "therapist", "paramedic", "specialist", "clinician", "practitioner",
+
+  // Anatomy & Physiology
+  "anatomy", "physiology", "cell", "tissue", "organ", "muscle", "bone", "nerve", "artery", "vein", "heart", "lung", "brain", "liver", "kidney", "stomach", "intestine", "skin", "hormone", "enzyme", "immune system", "lymph node", "skeleton", "joint", "cartilage", "tendon", "ligament", "gland", "abdomen", "chest", "thorax", "cranium", "spine", "pelvis",
+
+  // Diseases & Conditions (General & Specific examples)
+  "syndrome", "disorder", "condition", "inflammation", "trauma", "fracture", "burn", "virus", "bacteria", "fungus", "parasite", "genetic disorder", "autoimmune", "arthritis", "hypertension", "hypotension", "stroke", "dementia", "alzheimer's", "parkinson's", "epilepsy", "migraine", "depression", "anxiety", "bipolar disorder", "schizophrenia", "autism", "adhd", "osteoporosis", "bronchitis", "pneumonia", "tuberculosis", "hiv", "aids", "hepatitis", "cirrhosis", "anemia", "leukemia", "lymphoma", "sepsis", "eczema", "psoriasis", "acne", "gout", "obesity", "malnutrition", "edema", "tumor", "cyst", "lesion", "ulcer", "hernia", "cataract", "glaucoma", "dehydration", "insomnia", "narcolepsy", "vertigo",
+
+  // Treatments & Procedures
+  "surgery", "biopsy", "chemotherapy", "radiotherapy", "immunotherapy", "dialysis", "transplant", "transfusion", "intubation", "ventilation", "cpr", "first aid", "catheter", "endoscopy", "colonoscopy", "laparoscopy", "angioplasty", "bypass", "scan", "imaging", "ultrasound", "x-ray", "ct scan", "mri", "pet scan", "prognosis", "diagnosis", "consultation", "referral", "medication", "drug", "pharmaceutical", "antibiotic", "antiviral", "antifungal", "analgesic", "anti-inflammatory", "steroid", "antidepressant", "antipsychotic", "sedative", "stimulant", "vaccination", "inoculation", "infusion", "injection", "dosage", "placebo",
+
+  // Diagnostics & Testing
+  "test", "assay", "culture", "smear", "swab", "sample", "biomarker", "pathology", "histology", "cytology", "microscopy", "blood test", "urine test", "genetic testing", "ecg", "ekg", "eeg", "biopsy", "manometry", "spirometry",
+
+  // Biology (General & Molecular)
+  "biology", "biochemistry", "molecular biology", "genetics", "dna", "rna", "gene", "chromosome", "protein", "amino acid", "lipid", "carbohydrate", "cell cycle", "mitosis", "meiosis", "mutation", "evolution", "ecology", "organism", "species", "microbiology", "bacteriology", "virology", "mycology", "immunology", "neuroscience", "biotechnology", "bioinformatics", "genome", "proteome", "metabolome", "enzyme kinetics", "cell signaling", "receptor", "membrane", "cytoplasm", "nucleus", "mitochondria", "ribosome",
+
+  // Pharmacology more
+  "pharmacodynamics", "pharmacokinetics", "generic", "brand name", "side effect", "adverse reaction", "contraindication", "over-the-counter", "narcotic", "opiate", "vaccine adjuvant", "clinical trial","Ovulation",
+
+  // Medical Equipment & Supplies
+  "stethoscope", "scalpel", "syringe", "needle", "bandage", "gauze", "splint", "crutch", "wheelchair", "monitor", "defibrillator", "pacemaker", "implant",
+
+  // Public Health & Epidemiology
+  "epidemiology", "outbreak", "pandemic", "epidemic", "public health", "sanitation", "quarantine", "incidence", "prevalence", "morbidity", "mortality",
+
+  // Mental Health
+  "psychology", "psychosis", "neurosis", "phobia", "trauma (psychological)", "counseling", "psychotherapy", "cognitive behavioral therapy", "cbt", "mental illness",
+
+  // Dental Health
+  "dental", "tooth", "teeth", "gum", "cavity", "gingivitis", "periodontitis", "orthodontics", "endodontics", "plaque",
+
+  // Research & Study
+  "research", "study", "trial", "cohort", "longitudinal", "cross-sectional", "double-blind", "peer review", "publication", "abstract", "hypothesis"
 ];
+
+// You can then use this array in your application
+// console.log(MEDICAL_KEYWORDS.length); // To see how many keywords you have
 
 function isMedicalQuestion(text) {
   const lower = text.toLowerCase();
