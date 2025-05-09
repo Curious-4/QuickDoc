@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 
 // OpenRouter API endpoint and model
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY; // <-- Paste your OpenRouter API key here
+const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY; 
 
 const systemPrompt = `
 You are a professional medical assistant chatbot for patients. 
@@ -57,8 +57,6 @@ const MEDICAL_KEYWORDS = [
   "research", "study", "trial", "cohort", "longitudinal", "cross-sectional", "double-blind", "peer review", "publication", "abstract", "hypothesis"
 ];
 
-// You can then use this array in your application
-// console.log(MEDICAL_KEYWORDS.length); // To see how many keywords you have
 
 function isMedicalQuestion(text) {
   const lower = text.toLowerCase();
@@ -67,7 +65,8 @@ function isMedicalQuestion(text) {
 
 async function fetchLLMResponse(userMessage) {
   const body = {
-    model: "mistralai/mistral-7b-instruct:free", // You can use other free models from OpenRouter
+    model: "mistralai/mistral-7b-instruct:free", 
+    
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage }
